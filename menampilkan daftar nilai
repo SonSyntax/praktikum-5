@@ -1,0 +1,112 @@
+import time
+
+def tambah_data(data):
+    nim = input("masukan nim anda: ")
+    nama = input("masukan nama anda: ")
+    nilai_tugas = float(input("masukan nilai tugas: "))
+    nilai_uts = float(input ("masukan nilai uts: "))
+    nilai_uas = float(input ("masukan nilai uas: "))
+    nilai_akhir = (nilai_tugas + nilai_uts + nilai_uas) / 3
+    
+    data[nim] = {
+        'nama' : nama,
+        'nilai_tugas' : nilai_tugas,
+        'nilai_uts':nilai_uts,
+        'nilai_uas':nilai_uas,    
+        'nilai_akhir':round(nilai_akhir, 2)
+    }
+    
+def ubah_data(data):
+    nim = input("masukan nim yang ingin di ubah: ")
+    if nim in data:
+        print("Data ditemukan. masukkan data baru")
+        nama = input("masukan nama anda: ")
+        nilai_tugas = float(input("masukan nilai tugas: "))
+        nilai_uts = float(input ("masukan nilai uts: "))
+        nilai_uas = float(input ("masukan nilai uas: "))
+        nilai_akhir = (nilai_tugas + nilai_uts + nilai_uas) / 3
+        
+        data[nim] = {
+            'nama' : nama,
+            'nilai_tugas' : nilai_tugas,
+            'nilai_uts':nilai_uts,
+            'nilai_uas':nilai_uas,    
+            'nilai_akhir':round(nilai_akhir, 2)
+        }
+        print("Data Berhasil diubah")
+    else:
+        print("Nim tidak ditemukan")
+        
+def hapus_data(data):
+    nim = ("temukan data anda dengan memasukan nim jika ingin di hapus: ")
+    if nim in data:
+        del data[nim]
+        print("Data berhasil dihapus")
+    else:
+        print("Nim tidak ditemukan")
+        
+def cari_data(data):
+    nim = input("masukan nim yang ingin dicari: ")
+    if nim in data:
+        info = data[nim]
+        print("\nData ditemukan:")
+        print(f'''
+              nim           : {nim}
+              nama          : {info['nama']}
+              nilai_tugas   : {info['nilai_tugas']}
+              nilai_uts     : {info['nilai_uts']}
+              nilai_uas     : {info['nilai_uas']}
+              nilai_akhir   : {info['nilai_akhir']}
+              ''')
+    else:
+        print("nim tidak ditemukan ")
+
+def keluar_program():
+    print("program akan dihentikan")
+    time.sleep(1)
+    print("3...")
+    time.sleep(1)
+    print("2...")
+    time.sleep(1)
+    print("1...")
+    time.sleep(1)
+    print("Program berhasil dihentikan")
+    exit()
+    
+def lihat_data(data):
+    print("\nDaftar Nilai: ")
+    print("="*83)
+    print("| NO | NAMA                           | NIM       | TUGAS | UTS   | UAS   | AKHIR |")
+    print("="*83)
+    
+    for i, (nim, info) in enumerate (data.items(), start=1):
+        print(f"| {i:<2} | {info['nama']:<30} | {nim:<9} | {info['nilai_tugas']:<5} | {info['nilai_uts']:<5} | {info['nilai_uas']:<5} | {info['nilai_akhir']:<5.2f} |")
+    
+    print("="*83)
+    
+def main():
+    data = dict()
+    
+    while True:
+        print("\n(L)ihat, (T)ambah, (U)bah, (H)apus, (C)ari (K)eluar")
+        pilihan = input("Pilih menu: ").lower()
+        
+        if pilihan == "l":
+            lihat_data(data)
+        elif pilihan == "t":
+            tambah_data(data)
+        elif pilihan == "u":
+            ubah_data(data)
+        elif pilihan == "h":
+            hapus_data(data)
+        elif pilihan == "c":
+            cari_data(data)
+        elif pilihan == "k":
+            keluar_program()
+        else:
+            print("pilihan tidak valid")
+            
+if __name__ == "__main__":
+    main()
+            
+    
